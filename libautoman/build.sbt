@@ -7,7 +7,7 @@ organization := "edu.umass.cs"
 
 licenses := Seq("GPL-2.0" -> url("http://opensource.org/licenses/GPL-2.0"))
 
-homepage := Some(url("http://github.com/dbarowy/AutoMan"))
+homepage := Some(url("http://github.com/andyzeli/AutoMan"))
 
 scalaVersion := "2.11.7"
 
@@ -75,7 +75,7 @@ memoClean := {
     f.delete()
   }
 }
-
+/*
 val gitHash = TaskKey[String]("githash", "Gets the git hash of HEAD.")
 
 gitHash := {
@@ -100,12 +100,12 @@ hashAsConstant := {
   pw.write(clazz)
   pw.close()
 }
-
+*/
 // TEST CONFIGURATION
 parallelExecution in Test := false
 
 // MODIFY BUILD
-compile <<= (compile in Compile) dependsOn hashAsConstant
+//compile <<= (compile in Compile) dependsOn hashAsConstant
 
 // GENERATING JAR
 packSettings
@@ -113,16 +113,16 @@ packSettings
 // MAVEN
 
 // yes, we want Maven artifacts
-publishMavenStyle := true
+//publishMavenStyle := true
 
 // specify repository
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+//publishTo := {
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//}
 
 // don't publish test artifacts
 publishArtifact in Test := false
@@ -130,11 +130,12 @@ publishArtifact in Test := false
 // don't include optional repositories
 pomIncludeRepository := { _ => false }
 
+/*
 // POM body
 pomExtra := (
   <scm>
-    <url>git@github.com:dbarowy/AutoMan.git</url>
-    <connection>scm:git:git@github.com:dbarowy/AutoMan.git</connection>
+    <url>git@github.com:andyzeli/AutoMan.git</url>
+    <connection>scm:git:git@github.com:andyzeli/AutoMan.git</connection>
   </scm>
   <developers>
     <developer>
@@ -143,3 +144,4 @@ pomExtra := (
       <url>http://people.cs.umass.edu/~dbarowy</url>
     </developer>
   </developers>)
+  */
