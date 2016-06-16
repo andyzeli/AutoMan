@@ -10,7 +10,7 @@ import edu.umass.cs.automan.adapters.mturk.logging.MTMemo
 import edu.umass.cs.automan.adapters.mturk.mock.{MockSetup, MockServiceState, MockRequesterService}
 import edu.umass.cs.automan.adapters.mturk.question._
 import edu.umass.cs.automan.core.logging.{LogType, LogLevelDebug, DebugLog}
-import edu.umass.cs.automan.core.question.{Dimension$, Question}
+import edu.umass.cs.automan.core.question.{Dimension, Question}
 import edu.umass.cs.automan.core.scheduler.SchedulerState._
 import edu.umass.cs.automan.core.scheduler.{SchedulerState, Task}
 import edu.umass.cs.automan.core.AutomanAdapter
@@ -33,6 +33,7 @@ class MTurkAdapter extends AutomanAdapter {
   override type CBDQ    = MTCheckboxVectorQuestion
   override type MEQ     = MTMultiEstimationQuestion
   override type EQ      = MTEstimationQuestion
+  override type EMC     = MTExternalMultipleChoiceQuestion
   override type FTQ     = MTFreeTextQuestion
   override type FTDQ    = MTFreeTextVectorQuestion
   override type RBQ     = MTRadioButtonQuestion
@@ -72,6 +73,7 @@ class MTurkAdapter extends AutomanAdapter {
   protected def CBDQFactory() = new MTCheckboxVectorQuestion
   protected def MEQFactory()  = new MTMultiEstimationQuestion(sandbox_mode)
   protected def EQFactory()   = new MTEstimationQuestion
+  protected def EMCFactory()  = new MTExternalMultipleChoiceQuestion(sandbox_mode)
   protected def FTQFactory()  = new MTFreeTextQuestion
   protected def FTDQFactory() = new MTFreeTextVectorQuestion
   protected def RBQFactory()  = new MTRadioButtonQuestion

@@ -15,6 +15,7 @@ abstract class AutomanAdapter {
   type CBDQ   <: CheckboxVectorQuestion     // answer vector
   type MEQ    <: MultiEstimationQuestion    // answer multi-estimate
   type EQ     <: EstimationQuestion         // answer estimate
+  type EMC    <: ExternalMultipleChoiceQuestion   // answer scalar
   type FTQ    <: FreeTextQuestion           // answer scalar
   type FTDQ   <: FreeTextVectorQuestion     // answer vector
   type RBQ    <: RadioButtonQuestion        // answer scalar
@@ -129,6 +130,7 @@ abstract class AutomanAdapter {
   def FreeTextQuestion(init: FTQ => Unit) = schedule(FTQFactory(), init)
   def FreeTextDistributionQuestion(init: FTDQ => Unit) = schedule(FTDQFactory(), init)
   def RadioButtonQuestion(init: RBQ => Unit) = schedule(RBQFactory(), init)
+  def ExternalMultipleChoiceQuestion(init: EMC => Unit) = schedule(EMCFactory(), init)
   def RadioButtonDistributionQuestion(init: RBDQ => Unit) = schedule(RBDQFactory(), init)
   def Option(id: Symbol, text: String) : QuestionOption
 
@@ -213,6 +215,7 @@ abstract class AutomanAdapter {
   protected def CBDQFactory() : CBDQ
   protected def MEQFactory() : MEQ
   protected def EQFactory() : EQ
+  protected def EMCFactory() : EMC
   protected def FTQFactory() : FTQ
   protected def FTDQFactory() : FTDQ
   protected def RBQFactory() : RBQ
