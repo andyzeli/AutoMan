@@ -50,6 +50,7 @@ class Scheduler(val question: Question,
     run_loop(tasks)
   }
 
+
   private def taskStatus(ts: List[Task]) : Map[UUID,Date] = {
     ts.map { t => t.task_id -> t.state_changed_at }.toMap
   }
@@ -280,7 +281,7 @@ class Scheduler(val question: Question,
       // can we afford these?
       val cost = total_cost(tasks ::: new_tasks)
       if (question.budget < cost) {
-        // no
+        //
         DebugLog("Over budget. Need: " + cost.toString() + ", have: " + question.budget.toString(), LogLevelWarn(), LogType.SCHEDULER, question.id)
         throw new OverBudgetException(cost, question.budget)
       } else {

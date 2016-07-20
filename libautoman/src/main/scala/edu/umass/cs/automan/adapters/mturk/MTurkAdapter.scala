@@ -33,7 +33,6 @@ class MTurkAdapter extends AutomanAdapter {
   override type CBDQ    = MTCheckboxVectorQuestion
   override type MEQ     = MTMultiEstimationQuestion
   override type EQ      = MTEstimationQuestion
-  override type EMC     = MTExternalMultipleChoiceQuestion
   override type FTQ     = MTFreeTextQuestion
   override type FTDQ    = MTFreeTextVectorQuestion
   override type RBQ     = MTRadioButtonQuestion
@@ -73,7 +72,6 @@ class MTurkAdapter extends AutomanAdapter {
   protected def CBDQFactory() = new MTCheckboxVectorQuestion
   protected def MEQFactory()  = new MTMultiEstimationQuestion(sandbox_mode)
   protected def EQFactory()   = new MTEstimationQuestion
-  protected def EMCFactory()  = new MTExternalMultipleChoiceQuestion(sandbox_mode)
   protected def FTQFactory()  = new MTFreeTextQuestion
   protected def FTDQFactory() = new MTFreeTextVectorQuestion
   protected def RBQFactory()  = new MTRadioButtonQuestion
@@ -81,6 +79,8 @@ class MTurkAdapter extends AutomanAdapter {
 
   def Option(id: Symbol, text: String) = new MTQuestionOption(id, text, "")
   def Option(id: Symbol, text: String, image_url: String) = new MTQuestionOption(id, text, image_url)
+
+  // explain
 
   protected[automan] def accept(ts: List[Task]) = {
     assert(ts.forall { t =>
@@ -104,7 +104,7 @@ class MTurkAdapter extends AutomanAdapter {
   }
   protected[automan] def post(ts: List[Task], exclude_worker_ids: List[String]) = {
     assert(ts.forall(_.state == SchedulerState.READY))
-    run_if_initialized((p: TurkWorker) => p.post(ts, exclude_worker_ids))
+    run_if_initialized((p: TurkWorker) => p.post(ts, exclude_worker_ids)) //scala first class function magic.
   }
   protected[automan] def reject(ts_reasons: List[(Task, String)]) = {
     ts_reasons.foreach{ case (t,_) => assert(t.state == SchedulerState.ANSWERED, "State during reject is: " + t.state) }

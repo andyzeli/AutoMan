@@ -98,7 +98,7 @@ abstract class AggregationPolicy(question: Question) {
   /**
    * Computes the number of tasks needed to satisfy the quality-control
    * algorithm given the already-collected list of tasks. Returns only
-   * newly-created tasks.
+   * newly-created tasks
    *
    * @param tasks The complete list of previously-scheduled tasks
    * @param suffered_timeout True if any of the latest batch of tasks suffered a timeout.

@@ -13,7 +13,6 @@ class TurkWorker(val backend: RequesterService, val sleep_ms: Int, val mock_serv
   type HITID = String
   type BatchKey = (String,BigDecimal,Int)   // (group_id, cost, timeout); uniquely identifies a batch
   type HITKey = (BatchKey, String)          // (BatchKey, memo_hash); uniquely identifies a HIT
-
   // work queue
   private val _requests = new PriorityBlockingQueue[FIFOMessage]()
 

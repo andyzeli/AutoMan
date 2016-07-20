@@ -1,4 +1,4 @@
-packSettings
+//rmpackSettings
 
 packMain := Map("banana_question" -> "banana_question")
 
@@ -12,8 +12,8 @@ scalaVersion := "2.11.7"
 
 exportJars := true
 
-libraryDependencies ++= Seq(
-  "edu.umass.cs" %% "automan" % "1.1.6",
-  "com.amazonaws"   %  "aws-java-sdk"	% "1.10.23",
-  "org.imgscalr"    %  "imgscalr-lib"	% "4.2"
-)
+//libraryDependencies ++= Seq(
+//  "edu.umass.cs" %% "automan" % "1.1.6",
+//  "com.amazonaws"   %  "aws-java-sdk"	% "1.10.23",
+//  "org.imgscalr"    %  "imgscalr-lib"	% "4.2"
+//)

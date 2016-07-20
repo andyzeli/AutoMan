@@ -3,7 +3,7 @@ name := "automan"
 
 version := "1.1.7"
 
-organization := "edu.umass.cs"
+organization := "com.github.andyzeli"
 
 licenses := Seq("GPL-2.0" -> url("http://opensource.org/licenses/GPL-2.0"))
 
@@ -75,32 +75,7 @@ memoClean := {
     f.delete()
   }
 }
-/*
-val gitHash = TaskKey[String]("githash", "Gets the git hash of HEAD.")
 
-gitHash := {
-  import scala.sys.process._
-  ("git rev-parse HEAD" !!).replace("\n","")
-}
-
-val hashAsConstant = TaskKey[Unit]("hash-as-constant", "Creates a Scala source file containing the git hash for HEAD.")
-
-hashAsConstant := {
-  import java.io._
-
-  val path = "src/main/scala/edu/umass/cs/automan/core/util/GitHash.scala"
-
-  val clazz =
-    "package edu.umass.cs.automan.core.util\n\n" +
-    "object GitHash {\n" +
-    "  val value = \"" + gitHash.value + "\"\n" +
-    "}"
-
-  val pw = new PrintWriter(new File(path))
-  pw.write(clazz)
-  pw.close()
-}
-*/
 // TEST CONFIGURATION
 parallelExecution in Test := false
 
@@ -110,10 +85,12 @@ parallelExecution in Test := false
 // GENERATING JAR
 packSettings
 
+test in assembly := {}
+
 // MAVEN
 
 // yes, we want Maven artifacts
-//publishMavenStyle := true
+publishMavenStyle := true
 
 // specify repository
 //publishTo := {
@@ -130,7 +107,7 @@ publishArtifact in Test := false
 // don't include optional repositories
 pomIncludeRepository := { _ => false }
 
-/*
+//
 // POM body
 pomExtra := (
   <scm>
@@ -144,4 +121,4 @@ pomExtra := (
       <url>http://people.cs.umass.edu/~dbarowy</url>
     </developer>
   </developers>)
-  */
+

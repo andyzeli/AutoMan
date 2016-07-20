@@ -13,6 +13,11 @@ trait MTurkQuestion {
   protected var _formatted_content: Option[scala.xml.NodeSeq] = None
   protected var _keywords = List[String]()
   protected var _qualifications = List[QualificationRequirement]()
+  protected var _ext_webpage_url: Option[String] = None
+  protected var _ext_webpage_frame_height: Option[Int] = _ext_webpage_url match {
+      case Some(url) => Some(400); //default frame height in pixels
+      case None => None
+    }
 
   // public API
   def description_=(d: String) { _description = Some(d) }
@@ -27,6 +32,10 @@ trait MTurkQuestion {
   def keywords: List[String] = _keywords
   def qualifications_=(qs: List[QualificationRequirement]) { _qualifications = qs }
   def qualifications: List[QualificationRequirement] = _qualifications
+  def webpage_url: String = _ext_webpage_url match { case Some(x) => x; case None => ""}
+  def webpage_url_=(s: String) { _ext_webpage_url = Some(s)}
+  def webpage_frame: Option[Int] = _ext_webpage_frame_height
+  def webpage_frame_=(x: Int) { _ext_webpage_frame_height = Some(x)}
 
   // private API
   protected[mturk] def answer(a: Assignment): BackendResult[A] = {
@@ -39,4 +48,10 @@ trait MTurkQuestion {
   }
   protected[mturk] def fromXML(x: scala.xml.Node) : A
   protected[mturk] def toXML(randomize: Boolean) : scala.xml.Node
+  final def toXMLNode(randomize: Boolean) : scala.xml.Node = _ext_webpage_url.fold(toXML(randomize)) { m =>
+    <ExternalQuestion xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2006-07-14/ExternalQuestion.xsd">
+      <ExternalURL>{ m }</ExternalURL>
+      <FrameHeight>{ _ext_webpage_frame_height }</FrameHeight>
+    </ExternalQuestion>
+  }
 }

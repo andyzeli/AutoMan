@@ -205,7 +205,7 @@ object MTurkMethods {
     internal_state = state2
 
     // render XML
-    val xml = question.asInstanceOf[MTurkQuestion].toXML(randomize = true).toString()
+    val xml = question.asInstanceOf[MTurkQuestion].toXMLNode(randomize = true).toString()
     DebugLog("Posting task XML:\n" + xml.toString, LogLevelDebug(), LogType.ADAPTER, question.id)
 
     val hit = backend.createHIT(

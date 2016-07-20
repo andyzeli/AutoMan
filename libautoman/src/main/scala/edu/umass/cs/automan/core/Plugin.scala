@@ -7,3 +7,4 @@ trait Plugin {
   def shutdown()
   def state_updates(tasks: List[TaskSnapshot[_]])
 }
+

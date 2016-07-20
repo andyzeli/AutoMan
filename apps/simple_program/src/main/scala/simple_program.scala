@@ -1,17 +1,49 @@
+import com.amazonaws.mturk.addon._
 import edu.umass.cs.automan.adapters.mturk._
+import edu.umass.cs.automan.adapters.mturk.mock.MockSetup
+import edu.umass.cs.automan.adapters.mturk.question.MTRadioButtonVectorQuestion
 import edu.umass.cs.automan.core.answer._
+import edu.umass.cs.automan.core.logging.LogLevelDebug
 import edu.umass.cs.automan.core.policy.aggregation.UserDefinableSpawnPolicy
 
+
 object simple_program extends App {
-  val opts = Utilities.unsafe_optparse(args, "simple_program")
+  //val opts = Utilities.unsafe_optparse(args, "simple_program")
 
   val a = MTurkAdapter { mt =>
-    mt.access_key_id = opts('key)
-    mt.secret_access_key = opts('secret)
-    mt.sandbox_mode = opts('sandbox).toBoolean
+    mt.access_key_id = "mykey" //AKIAIMWMTFQUYWFECTVQ"
+    mt.secret_access_key = "mysec"//"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"
+    mt.sandbox_mode = true
+    mt.use_mock= MockSetup(budget = 8)
+    mt.logging = LogConfig.NO_LOGGING
+    mt.log_verbosity = LogLevelDebug()
+
+
   }
 
-  def which_one() = a.RadioButtonQuestion { q =>
+
+  //i think this is how anonymous constructors work. define class Foo. then val a = Foo { f => f.value = fvalue...
+  // the compiler initializes a Foo, locally called f with the paramaters listed
+
+  val inputFile = "url.input"
+
+  val input: HITDataInput = new HITDataCSVReader(inputFile)
+
+  val qustFile = "ext.quest"
+  val questionNode: HITQuestion = new HITQuestion(qustFile)
+
+  val success: HITDataOutput = new HITDataCSVWriter(inputFile + ".success")
+  val failure: HITDataOutput = new HITDataCSVWriter(inputFile + ".failure")
+
+//and here RadioButtonDistribution method is defined in Automan adapter, but the a implementation is the MTurkAdapter
+  // . the following is type simpleprogram.a.RBDQ#O
+
+  def which_one() = a.RadioButtonDistributionQuestion { q => //calls schedule(init,
+    // rbdqFactory(), which
+
+    // is
+    // overriden
+    // in MTurkAdapter implementation. class is MTRadioButtonVectorQuestion
     q.budget = 8.00
     q.text = "Which one of these does not belong?"
     q.options = List(

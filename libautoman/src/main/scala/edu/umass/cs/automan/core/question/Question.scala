@@ -25,7 +25,6 @@ trait Question {
 
   protected var _before_filter: A => A = (a: A) => a
   protected var _budget: Option[BigDecimal] = None
-  protected var _webpage_url: Option[String] = None // like image  url but for e.g. site category
   protected var _id: UUID = UUID.randomUUID()
   protected var _image: Option[File] = None
   protected var _image_alt_text: Option[String] = None
@@ -63,8 +62,6 @@ trait Question {
   def dont_reject: Boolean = _dont_reject
   def dry_run_=(dr: Boolean) { _dry_run = dr }
   def dry_run: Boolean = _dry_run
-  def webpage_url: String = _webpage_url match { case Some(x) => x; case None => ""}
-  def webpage_url_=(s: String) { _webpage_url = Some(s)}
   def id: UUID = _id
   def id_=(id: UUID) { _id = id }
   def id_string: String = _id.toString

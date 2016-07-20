@@ -37,6 +37,7 @@ class MTRadioButtonVectorQuestion extends RadioButtonVectorQuestion with MTurkQu
 
     Symbol((x \\ "Answer" \\ "SelectionIdentifier").text)
   }
+  def foo: scala.xml.Node = <message></message>
   def toXML(randomize: Boolean) : scala.xml.Node = {
     <QuestionForm xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd">
       <Question>

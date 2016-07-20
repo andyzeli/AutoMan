@@ -1,4 +1,6 @@
 import edu.umass.cs.automan.adapters.mturk._
+import edu.umass.cs.automan.adapters.mturk.mock.MockSetup
+import edu.umass.cs.automan.core.logging.LogLevelDebug
 import net.ettinsmoor.Bingerator
 import java.util.UUID
 import edu.umass.cs.automan.core.answer.Answer
@@ -18,9 +20,12 @@ object HowManyThings extends App {
   val opts = config(args)
 
   val a = MTurkAdapter { mt =>
-    mt.access_key_id = opts('key)
-    mt.secret_access_key = opts('secret)
-    mt.sandbox_mode = opts('sandbox).toBoolean
+    mt.access_key_id = "mykey" //AKIAIMWMTFQUYWFECTVQ"
+    mt.secret_access_key = "mysec"//"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"
+    mt.sandbox_mode = true
+    mt.use_mock= MockSetup(budget = 8)
+    mt.logging = LogConfig.NO_LOGGING
+    mt.log_verbosity = LogLevelDebug()
   }
 
   def how_many_things(photo_url: String) = a.RadioButtonQuestion { q =>
